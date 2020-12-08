@@ -12,6 +12,7 @@ var mongoose = require("mongoose");
 var passport = require("passport");
 var cors = require("cors");
 var imageRoute = require('./routes/images');
+var userRoute = require('./routes/user');
 var app = express();
 app.use(cors());
 const optician_1 = require('./connections/optician_1');
@@ -39,6 +40,8 @@ if (process.env.NODE_ENV === "production") {
 }
 
 app.use("/image", imageRoute);
+app.use("/user", userRoute);
+
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
   next(createError(404));
@@ -53,7 +56,7 @@ app.use(function (err, req, res, next) {
 
   // render the error page
   res.status(err.status || 500);
-  res.json({ email: "aaaaa" });
+  res.end("aaaaaaaaaaaaaaaa");
 });
 
 module.exports = app;
