@@ -2,6 +2,10 @@
 client/.env
 server/.env
 
+client/.eslintcache
+
 node_modules
 client/node_modules
 server/node_modules
+
+*.dcm
