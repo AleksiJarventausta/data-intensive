@@ -1,25 +1,28 @@
-import './App.css';
-import { BrowserRouter as Router, Route, Switch, Link } from 'react-router-dom';
-import { Button, Grid, Header} from 'semantic-ui-react';
+import { useState } from 'react';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { Grid } from 'semantic-ui-react';
+import Login from './components/Login';
+import Main from './components/Main';
 
 function App() {
+  const [user, setUser] = useState("User")
+  const [tab, setTab] = useState("/")
+
+  const handleLogin = (user, tab) => {
+    setUser(user)
+    setTab(tab)
+  }
   return (
     <Router>
       <Grid textAlign='center' verticalAlign='middle' style={{ height:'100vh'}}>
         <Switch>
           <Route exact path="/">
-            <Grid.Column style={{maxWidth:450}}>
-              <Header as='h2'>  aaa </Header>
-                <Button as={Link} to="/main"> Login Button</Button>
-            </Grid.Column>
+            <Login onLogin={handleLogin} tab={tab} />
           </Route>
-            <Route path="/main">
-              <Grid.Column style={{maxWidth:450}}>
-                <Header as='h2'>  eee </Header>
-                  <Button as={Link} to="/"> Log Out Button</Button>
-              </Grid.Column>
-            </Route>
-          </Switch>
+          <Route path="/main">
+            <Main user={user} onLogout={handleLogin} tab={tab}/>
+          </Route>
+        </Switch>
       </Grid>
     </Router>
   );
