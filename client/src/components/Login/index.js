@@ -1,7 +1,6 @@
 import { Button, Grid, Header, Form} from 'semantic-ui-react';
 import { Redirect } from 'react-router-dom';
 import { useState } from 'react';
-import fetch from "node-fetch";
 
 function Login(props) {
   const [currentName, setName] = useState("");
@@ -15,7 +14,7 @@ function Login(props) {
       password: currentPassword
     }
     //console.log("POST: {" + login.username + ", " + login.password + "}")
-    fetch('http://localhost:8080/user/login', {
+    fetch('/user/login', {
             method: 'post',
             body: JSON.stringify(login),
             headers: { 'Content-Type': 'application/json'},
