@@ -11,11 +11,12 @@ var Promise = require("bluebird");
 var mongoose = require("mongoose");
 var passport = require("passport");
 var cors = require("cors");
-var imageRoute = require('./routes/images');
-var userRoute = require('./routes/user');
+var imageRoute = require("./routes/images");
+var userRoute = require("./routes/user");
+var customerRoute = require("./routes/customer");
 var app = express();
 app.use(cors());
-const optician_1 = require('./connections/optician_1');
+const optician_1 = require("./connections/optician_1");
 mongoose.Promise = Promise;
 
 app.use(express.json());
@@ -41,12 +42,12 @@ if (process.env.NODE_ENV === "production") {
 
 app.use("/image", imageRoute);
 app.use("/user", userRoute);
+app.use("/customer", customerRoute);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
   next(createError(404));
 });
-
 
 // error handler
 app.use(function (err, req, res, next) {
