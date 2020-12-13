@@ -10,15 +10,17 @@ function NewUserForm(props) {
   const [currentSSN, setSSN] = useState("");
 
   const handleSubmit = () => {
-    const newUser = {
+    const customer = {
       firstname: currentFirstName,
       lastname: currentLastName,
       address: currentAddress,
       ssn: currentSSN,
     };
-    axios.post("customer/newuser", newUser).then((res) => {
-      console.log(res);
-    });
+    axios
+      .post("http://localhost:8080/customer/newcustomer", customer)
+      .then((res) => {
+        console.log(res);
+      });
   };
 
   const handleNameChange = (event) => {
