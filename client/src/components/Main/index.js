@@ -26,7 +26,7 @@ function Main(props) {
 
 
     </Grid.Column>
-    
+
 
   );
 }
