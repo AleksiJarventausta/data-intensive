@@ -24,10 +24,10 @@ router.post("/newcustomer", function (req, res) {
 
 // 8080/Customer
 router.get("/", function (req, res) {
-  Customer.findOne({ firstname: "testi1" }, function (err, user) {
+  Customer.find(function (err, customers) {
     if (err) return res.status(400).json({ error: "failed" });
-    if (user) {
-      res.send(user);
+    if (customers) {
+      res.send(customers);
     }
   });
 });
