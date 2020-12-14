@@ -4,51 +4,31 @@ import { useState, useEffect } from "react";
 import setAuthToken from "../../utils/setAuthToken";
 import jwt_decode from "jwt-decode";
 
-function Login(props) {
+function Register(props) {
   const [currentName, setName] = useState("");
   const [currentPassword, setPassword] = useState("");
+  const [currentPasswordConfirm, setPasswordConfirm] = useState("");
 
-  useEffect(() => {
-    if (localStorage.jwtTokenTeams) {
-      // Set auth token header auth
-      const token = JSON.parse(localStorage.jwtTokenTeams);
-      setAuthToken(token);
-      // Decode token and get user info and exp
-      const decoded = jwt_decode(token);
-      // Check for expired token
-      const currentTime = Date.now() / 1000;
-      props.onLogin(decoded, "/main");
-    }
-  }, []);
-
-  const loginSubmit = () => {
-    const login = {
+  const registerSubmit = () => {
+    const register = {
       username: currentName,
       password: currentPassword,
+      passwordconfirm: currentPasswordConfirm
     };
-    fetch("/user/login", {
+    fetch("/user/register", {
       method: "post",
-      body: JSON.stringify(login),
+      body: JSON.stringify(register),
       headers: { "Content-Type": "application/json" },
     })
-      .then((res) => res.json())
       .then((res) => {
-        if (res.token) {
-          const  token = res.token;
-          localStorage.setItem("jwtTokenTeams", JSON.stringify(token));
-          // Set token to Auth header
-          setAuthToken(token);
-          // Decode token to get user data
-          const decoded = jwt_decode(token);
-          props.onLogin(decoded, "/main");
+        if (res.status) {
+          console.log(res.status);
+          props.onRegister();
         } else {
+          console.log("registration failed");
           return;
         }
       });
-  };
-
-  const registerSubmit = () => {
-    props.onRegisterView("");
   };
 
   const handleNameChange = (event) => {
@@ -58,7 +38,12 @@ function Login(props) {
   const handlePasswordChange = (event) => {
     setPassword(event.target.value);
   };
-  if (props.tab !== "/") {
+
+  const handleVerifyChange = (event) => {
+    setPasswordConfirm(event.target.value);
+  };
+
+  if (props.tab !== "/register") {
     return <Redirect to={props.tab} />;
   }
   return (
@@ -78,11 +63,17 @@ function Login(props) {
           type="password"
           onChange={handlePasswordChange}
         />
-        <Button onClick={loginSubmit}> Login </Button>
+        <Form.Input
+          icon="lock"
+          iconPosition="left"
+          placeholder="Verify Password"
+          type="password"
+          onChange={handleVerifyChange}
+        />
         <Button onClick={registerSubmit}> Register </Button>
       </Form>
     </Grid.Column>
   );
 }
 
-export default Login;
+export default Register;

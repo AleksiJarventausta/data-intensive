@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import { Grid } from "semantic-ui-react";
 import Login from "./components/Login";
+import Register from "./components/Register";
 import Main from "./components/Main";
 import setAuthToken from "./utils/setAuthToken";
 import jwt_decode from "jwt-decode";
@@ -40,7 +41,13 @@ function App() {
     localStorage.removeItem("jwtTokenTeams")
     setTab("/");
   }
-  
+
+  const handleRegister = () => {
+    setTab("/");
+  }
+  const handleRegisterView = () => {
+    setTab("/register");
+  }
   return (
     <Router>
       <Grid
@@ -50,7 +57,10 @@ function App() {
       >
         <Switch>
           <Route exact path="/">
-            <Login onLogin={handleLogin} tab={tab} />
+            <Login onLogin={handleLogin} onRegisterView={handleRegisterView} tab={tab} />
+          </Route>
+          <Route exact path="/register">
+            <Register onRegister={handleRegister} tab={tab} />
           </Route>
           <Route path="/main">
             <Main user={user} onLogout={handleLogout} tab={tab} />
