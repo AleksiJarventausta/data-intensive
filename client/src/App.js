@@ -24,6 +24,9 @@ function App() {
       const currentTime = Date.now() / 1000; // to get in milliseconds
       if (decoded.exp < currentTime) {
         // Logout user
+        localStorage.removeItem("jwtTokenTeams")
+        setUser(null);
+
       }
     }
   }, []);
