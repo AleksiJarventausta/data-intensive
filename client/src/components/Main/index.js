@@ -23,7 +23,7 @@ function Main(props) {
           <Button onClick={handleLogout}> Logout Button </Button>
         </Container>
 
-        <Grid columns={2} relaxed="very">
+        <Grid container columns={2} relaxed="very">
           <Grid.Row>
             <Grid.Column width={8}>
               <NewForm></NewForm>
