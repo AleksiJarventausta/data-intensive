@@ -1,6 +1,5 @@
-
 const router = require("express").Router();
-const User = require('../connections/systemDB').model('User');
+const User = require("../connections/systemDB").model("User");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 var registerValidation = require("../validation/validateRegistration");
@@ -13,21 +12,19 @@ function sendJwtToken(res, payload) {
     payload,
     process.env.secretOrKey,
     {
-      expiresIn: 31556926 // 1 year in seconds
+      expiresIn: 31556926, // 1 year in seconds
     },
     (err, token) => {
       res.json({
         success: true,
-        token: "Bearer " + token
+        token: "Bearer " + token,
       });
     }
   );
 }
 
-
-
 function saveUser(req, res) {
-  bcrypt.compare(req.body.password, req.user.password).then(isMatch => {
+  bcrypt.compare(req.body.password, req.user.password).then((isMatch) => {
     if (isMatch) {
       if (req.body.newpassword1) {
         bcrypt.genSalt(10, (err, salt) => {
@@ -36,21 +33,23 @@ function saveUser(req, res) {
             req.user.password = hash;
             req.user
               .save()
-              .then(user => {
+              .then((user) => {
                 const payload = {
                   id: req.user._id,
-                  username: req.user.username
+                  username: req.user.username,
                 };
                 // Sign token
                 sendJwtToken(res, payload);
               })
-              .catch(err => res.json({ error: "failed to update user info." }));
+              .catch((err) =>
+                res.json({ error: "failed to update user info." })
+              );
           });
         });
       } else {
         req.user
           .save()
-          .then(user => {
+          .then((user) => {
             const payload = {
               id: req.user._id,
               username: req.user.username,
@@ -58,7 +57,7 @@ function saveUser(req, res) {
             // Sign token
             sendJwtToken(res, payload);
           })
-          .catch(err => {
+          .catch((err) => {
             let o = err;
             res.json({ error: "failed to update user info." });
           });
@@ -69,7 +68,7 @@ function saveUser(req, res) {
   });
 }
 
-router.post("/login", function(req, res) {
+router.post("/login", function (req, res) {
   const { errors, isValid } = loginValidation(req.body);
 
   // Check validation
@@ -81,14 +80,14 @@ router.post("/login", function(req, res) {
   const password = req.body.password;
 
   // Find user by
-  User.findOne({ username }).then(user => {
+  User.findOne({ username }).then((user) => {
     // Check if user exists
     if (!user) {
       return res.status(400).json({ username: "User not found" });
     }
 
     // Check password
-    bcrypt.compare(password, user.password).then(isMatch => {
+    bcrypt.compare(password, user.password).then((isMatch) => {
       if (isMatch) {
         // User matched
         // Create JWT Payload
@@ -108,7 +107,7 @@ router.post("/login", function(req, res) {
 router.post(
   "/update",
   passport.authenticate("jwt", { session: false }),
-  function(req, res, next) {
+  function (req, res, next) {
     const { errors, isValid } = updateValidation(req.body);
 
     // Check validation
@@ -134,7 +133,7 @@ router.post(
       name = req.user.username;
       newName = false;
     }
-    User.findOne({ username: name }, function(err, user) {
+    User.findOne({ username: name }, function (err, user) {
       if (err) return res.status(400).json({ error: "failed" });
       if (user && newName) {
         return res.status(400).json({ username: "Username already in use" });
@@ -146,21 +145,21 @@ router.post(
   }
 );
 
-router.post("/register", function(req, res) {
+router.post("/register", function (req, res) {
   let { errors, isValid } = registerValidation(req.body);
 
   if (!isValid) {
     return res.status(400).json(errors);
   }
 
-  User.findOne({ username: req.body.username }, function(err, user) {
+  User.findOne({ username: req.body.username }, function (err, user) {
     if (user) {
       return res.status(400).json({ username: "Username already in use." });
     } else {
       let registeringUser = new User({
         username: req.body.username,
         password: req.body.password,
-        _id: new mongoose.Types.ObjectId()
+        _id: new mongoose.Types.ObjectId(),
       });
       bcrypt.genSalt(10, (err, salt) => {
         bcrypt.hash(registeringUser.password, salt, (err, hash) => {
@@ -168,8 +167,8 @@ router.post("/register", function(req, res) {
           registeringUser.password = hash;
           registeringUser
             .save()
-            .then(user => res.send("ok"))
-            .catch(err => console.log(err));
+            .then((user) => res.send("ok"))
+            .catch((err) => console.log(err));
         });
       });
     }

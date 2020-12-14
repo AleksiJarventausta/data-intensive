@@ -9,7 +9,7 @@ function Main(props) {
 
 
   const handleLogout = () => {
-      props.onLogout("nouser", "/")
+      props.onLogout({}, "/")
     }
 
   if (props.tab !== "/main") {
@@ -18,7 +18,7 @@ function Main(props) {
 
   return (
     <Grid.Column style={{maxWidth:450}}>
-      <Header as='h2'> Welcome, {props.user} </Header>
+      <Header as='h2'> Welcome, {props.user.username} </Header>
       <Button onClick={handleLogout}> Logout Button </Button>
       <NewForm></NewForm>
       <CustomerList></CustomerList>
