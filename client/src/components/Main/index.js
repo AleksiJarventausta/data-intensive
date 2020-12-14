@@ -1,6 +1,8 @@
 import { Button, Grid, Header, Form} from 'semantic-ui-react';
 import { Redirect } from 'react-router-dom';
 import NewForm from './NewUserForm';
+import CustomerList from './customerList';
+import CornerStoneViewPort from './CornerstoneViewport';
 
 function Main(props) {
 
@@ -19,6 +21,10 @@ function Main(props) {
       <Header as='h2'> Welcome, {props.user} </Header>
       <Button onClick={handleLogout}> Logout Button </Button>
       <NewForm></NewForm>
+      <CustomerList></CustomerList>
+      <CornerStoneViewPort></CornerStoneViewPort>
+
+
     </Grid.Column>
     
 
