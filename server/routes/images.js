@@ -16,8 +16,7 @@ router.post("/upload/:customerID", function (req, res) {
 
   const image = new Image({
     name: req.body.name,
-    image: 
-  })
+  });
 
 
 

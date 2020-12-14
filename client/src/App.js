@@ -24,14 +24,23 @@ function App() {
       const currentTime = Date.now() / 1000; // to get in milliseconds
       if (decoded.exp < currentTime) {
         // Logout user
+        handleLogout()
+
       }
     }
   }, []);
 
   const handleLogin = (user, tab) => {
     setUser(user);
-    setTab(tab);
+    setTab(tab)
   };
+
+  const handleLogout = () => {
+    setUser(null)
+    localStorage.removeItem("jwtTokenTeams")
+    setTab("/");
+  }
+  
   return (
     <Router>
       <Grid
@@ -44,7 +53,7 @@ function App() {
             <Login onLogin={handleLogin} tab={tab} />
           </Route>
           <Route path="/main">
-            <Main user={user} onLogout={handleLogin} tab={tab} />
+            <Main user={user} onLogout={handleLogout} tab={tab} />
           </Route>
         </Switch>
       </Grid>
