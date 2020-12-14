@@ -11,7 +11,7 @@ function CustomerListing() {
   const [items, setItems] = useState([]);
 
   useEffect(() => {
-    fetch("http://localhost:8080/customer")
+    fetch("/customer")
       .then((response) => response.json())
       .then((data) => setItems(data));
   }, []);

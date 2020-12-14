@@ -11,6 +11,9 @@ var dicomSchema = new Schema({
   },
   image: {
       type: Buffer
+  },
+  customer: {
+    type: mongoose.Types.ObjectId
   }
 });
 
