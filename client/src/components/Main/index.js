@@ -31,6 +31,12 @@ function Main(props) {
         <Grid.Column width={8}>
           <CustomerList setCustomerId={setCustomerId} />
         </Grid.Column>
+      <Grid.Column>
+      {customerId.length > 0 && isOpth() ? (
+        <CornerStoneViewPort customerId={customerId} />
+        ) : (
+          <div></div>
+          )}
         {isOptician() ? (
           <Grid.Column width={8}>
             <NewForm />
@@ -38,12 +44,8 @@ function Main(props) {
         ) : (
           <div></div>
         )}
+      </Grid.Column>
       </Grid.Row>
-      {customerId.length > 0 && isOpth() ? (
-        <CornerStoneViewPort customerId={customerId} />
-      ) : (
-        <div></div>
-      )}
       <Grid.Row>
         <Grid.Column width={8}></Grid.Column>
         <Grid.Column width={8}></Grid.Column>
