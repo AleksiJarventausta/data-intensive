@@ -54,8 +54,8 @@ function CustomerListing(props) {
     fetchData();
   }, []);
 
-  const isOpth = () => {
-    return props.user.profession === 2 ? true : false;
+  function isOpth (item)  {
+    return (props.user.user.profession === 2) && !item.certification_status ;
   };
 
   return (
@@ -95,7 +95,7 @@ function CustomerListing(props) {
               )}
             </List.Content>
             <List.Content>
-              {!item.certification_status && isOpth() ? (
+              {isOpth(item)  ? (
                 <Button primary onClick={(e) => updateCustomer(item)}>
                   Certify
                 </Button>
