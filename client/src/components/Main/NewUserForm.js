@@ -17,17 +17,28 @@ function NewUserForm(props) {
     formData.append('lastname', currentLastName);
     formData.append('address', currentAddress);
     formData.append('SSN', currentSSN);
-    formData.append('image', currentFiles[0]);
+    if (currentFiles[0]) {
+      formData.append('image', currentFiles[0]);
+    } else {
+      formData.append('image', null);
+    }
+
+    let authorization = ""
+    if (localStorage.jwtTokenTeams) {
+      // Set auth token header auth
+      authorization = localStorage.jwtTokenTeams
+    }
 
     fetch('/customer/newcustomerwithimage', {
       method: 'PUT',
-      body: formData
+      body: formData,
+      headers: {}
     })
     .then(res => {
       console.log('User data sent', res);
     })
     .catch(error => {
-      console.error('Error snding uesr data', error);
+      console.error('Error sending user data', error);
     });
 
     /*

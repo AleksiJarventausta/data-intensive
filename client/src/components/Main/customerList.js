@@ -5,9 +5,23 @@ function CustomerListing(props) {
   const [items, setItems] = useState([]);
 
   const fetchData = async () => {
-    const response = await fetch("/customer");
-    const data = await response.json();
-    setItems(data);
+    //const response = await fetch("/customer");
+    //const data = await response.json();
+
+    let authorization = ""
+    if (localStorage.jwtTokenTeams) {
+      // Set auth token header auth
+      authorization = localStorage.jwtTokenTeams
+    }
+
+    fetch("customer", {
+      method: "get",
+      headers: { "Content-Type": "application/json", "Authorization": authorization }
+    })
+    .then((res) => res.json())
+    .then((res) => {
+      setItems(res);
+    });
   };
 
   return (
