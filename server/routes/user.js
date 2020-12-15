@@ -37,6 +37,7 @@ function saveUser(req, res) {
                 const payload = {
                   id: req.user._id,
                   username: req.user.username,
+                  profession: user.profession
                 };
                 // Sign token
                 sendJwtToken(res, payload);
@@ -53,6 +54,7 @@ function saveUser(req, res) {
             const payload = {
               id: req.user._id,
               username: req.user.username,
+              profession: user.profession
             };
             // Sign token
             sendJwtToken(res, payload);
@@ -94,6 +96,7 @@ router.post("/login", function (req, res) {
         const payload = {
           id: user._id,
           username: user.username,
+          profession: user.profession
         };
         // Sign token
         sendJwtToken(res, payload);
@@ -159,6 +162,7 @@ router.post("/register", function (req, res) {
       let registeringUser = new User({
         username: req.body.username,
         password: req.body.password,
+        profession: req.body.profession,
         _id: new mongoose.Types.ObjectId(),
       });
       bcrypt.genSalt(10, (err, salt) => {

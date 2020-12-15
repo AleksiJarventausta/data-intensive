@@ -52,7 +52,7 @@ router.post("/newcustomer", function (req, res) {
 
 // 8080/Customer
 router.get("/", function (req, res) {
-  Customer.find(function (err, customers) {
+  Customer.find().select("-image").exec(function (err, customers) {
     if (err) return res.status(400).json({ error: "failed" });
     if (customers) {
       res.send(customers);

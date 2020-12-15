@@ -12,6 +12,9 @@ var userSchema = new Schema({
   email: {
     type: String
   },
+  profession: {
+    type: Number
+  },
   password: {
     type: String,
     required: true
