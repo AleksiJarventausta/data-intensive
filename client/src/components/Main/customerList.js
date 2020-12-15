@@ -1,8 +1,13 @@
 import { List, Button, Image } from "semantic-ui-react";
 import { useEffect, useState } from "react";
+import CertificationButton from './CertificationStatusButton';
 
 function CustomerListing(props) {
+
+
   const [items, setItems] = useState([]);
+
+
 
   const fetchData = async () => {
     //const response = await fetch("/customer");
@@ -26,6 +31,8 @@ function CustomerListing(props) {
         setItems(res);
       });
   };
+
+
 
   return (
     <>
@@ -64,6 +71,9 @@ function CustomerListing(props) {
                   </h5>
                 )}
               </List.Content>
+              <List.Content>
+                <CertificationButton onClick={updateCustomer(item)}></CertificationButton>
+              </List.Content>
             </List.Item>
           ))}
         </List>
@@ -73,4 +83,24 @@ function CustomerListing(props) {
     </>
   );
 }
+  
+  function updateCustomer(props){
+    const certificateStatus ={
+      certification_status: true,
+      _id: props._id
+    };
+    console.log(certificateStatus);
+
+    let authorization = ""
+    if (localStorage.jwtTokenTeams) {
+      // Set auth token header auth
+      authorization = JSON.parse(localStorage.jwtTokenTeams);
+    }
+    fetch("/customer/updatecertification", {
+      method: "post",
+      body: JSON.stringify(certificateStatus),
+      headers: { "Content-Type": "application/json", "Authorization": authorization }
+    })
+  }
+
 export default CustomerListing;
