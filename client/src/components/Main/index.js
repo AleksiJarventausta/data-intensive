@@ -1,11 +1,13 @@
 import { Container, Grid, Header, List, Button } from "semantic-ui-react";
 import { Redirect } from "react-router-dom";
+import {useState} from "react";
 import NewForm from "./NewUserForm";
 import CustomerList from "./customerList";
 import CornerStoneViewPort from "./CornerstoneViewport";
 import CustomMenu from "./Menu";
 
 function Main(props) {
+  const [customerId, setCustomerId] = useState("5fd5ffc5d621e849cc427a00");
   const handleLogout = () => {
     props.onLogout({}, "/");
   };
@@ -29,13 +31,13 @@ function Main(props) {
               <NewForm></NewForm>
             </Grid.Column>
             <Grid.Column width={8}>
-              <CustomerList></CustomerList>
+              <CustomerList setCustomerId={setCustomerId}></CustomerList>
             </Grid.Column>
           </Grid.Row>
 
           <Grid.Row>
             <Grid.Column width={8}>
-              <CornerStoneViewPort imageIds={["wadouri:" + window.location.origin + "/image/lolxs"]}></CornerStoneViewPort>
+              <CornerStoneViewPort customerId={customerId}></CornerStoneViewPort>
             </Grid.Column>
             <Grid.Column width={8}>
               <h1>Lisää </h1>

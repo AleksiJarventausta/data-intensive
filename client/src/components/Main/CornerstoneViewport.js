@@ -29,11 +29,12 @@ export default function CornerStoneViewPort(props) {
     { name: "ZoomTouchPinch", mode: "active" },
     { name: "StackScrollMultiTouch", mode: "active" },
   ];
+    
 
   return (
     <CornerstoneViewport
       tools={tools}
-      imageIds={props.imageIds}
+      imageIds={["wadouri:" + window.location.origin + "/image/" + props.customerId]}
       style={{ minWidth: "100%", height: "512px", flex: "1" }}
     />
   );

@@ -1,7 +1,7 @@
 import { List, Button, Image } from "semantic-ui-react";
 import { useEffect, useState } from "react";
 
-function CustomerListing() {
+function CustomerListing(props) {
   const [items, setItems] = useState([]);
 
   const fetchData = async () => {
@@ -16,7 +16,7 @@ function CustomerListing() {
       {items.length > 0 ? (
         <List>
           {items.map((item) => (
-            <List.Item key={item._id}>
+            <List.Item key={item._id} onClick={(e) => props.setCustomerId(item._id) }>
               <List.Content>
                 <List.Header as="a">
                   {"Name: "}
