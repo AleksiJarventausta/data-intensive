@@ -29,22 +29,22 @@ function Main(props) {
       <Grid.Row> </Grid.Row>
       <Grid.Row>
         <Grid.Column width={8}>
-          <CustomerList setCustomerId={setCustomerId} />
+          <CustomerList user={props} setCustomerId={setCustomerId} />
         </Grid.Column>
-      <Grid.Column>
-      {customerId.length > 0 && isOpth() ? (
-        <CornerStoneViewPort customerId={customerId} />
-        ) : (
-          <div></div>
+        <Grid.Column>
+          {customerId.length > 0 && isOpth() ? (
+            <CornerStoneViewPort customerId={customerId} />
+          ) : (
+            <div></div>
           )}
-        {isOptician() ? (
-          <Grid.Column width={8}>
-            <NewForm />
-          </Grid.Column>
-        ) : (
-          <div></div>
-        )}
-      </Grid.Column>
+          {isOptician() ? (
+            <Grid.Column width={8}>
+              <NewForm />
+            </Grid.Column>
+          ) : (
+            <div></div>
+          )}
+        </Grid.Column>
       </Grid.Row>
       <Grid.Row>
         <Grid.Column width={8}></Grid.Column>

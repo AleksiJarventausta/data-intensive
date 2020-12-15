@@ -43,7 +43,7 @@ function CustomerListing(props) {
         "Content-Type": "application/json",
         Authorization: authorization,
       },
-    }).then(res => {
+    }).then((res) => {
       if (res.ok) {
         fetchData();
       }
@@ -54,10 +54,14 @@ function CustomerListing(props) {
     fetchData();
   }, []);
 
+  const isOpth = () => {
+    return props.user.profession === 2 ? true : false;
+  };
+
   return (
     <>
       <h3>Customers</h3>
-      <List style={{maxHeight:"75%", overflow:"scroll"}}>>
+      <List style={{ maxHeight: "75%", overflow: "scroll" }}>
         {items.map((item) => (
           <List.Item key={item._id}>
             <List.Content>
@@ -91,7 +95,7 @@ function CustomerListing(props) {
               )}
             </List.Content>
             <List.Content>
-              {!item.certification_status ? (
+              {!item.certification_status && isOpth() ? (
                 <Button primary onClick={(e) => updateCustomer(item)}>
                   Certify
                 </Button>
