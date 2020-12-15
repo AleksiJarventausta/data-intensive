@@ -15,10 +15,15 @@ function Register(props) {
       password: currentPassword,
       passwordconfirm: currentPasswordConfirm
     };
+    let authorization = ""
+    if (localStorage.jwtTokenTeams) {
+      // Set auth token header auth
+      authorization = localStorage.jwtTokenTeams
+    }
     fetch("/user/register", {
       method: "post",
       body: JSON.stringify(register),
-      headers: { "Content-Type": "application/json" },
+      headers: { "Content-Type": "application/json", "Authorization": authorization }
     })
       .then((res) => {
         if (res.status) {

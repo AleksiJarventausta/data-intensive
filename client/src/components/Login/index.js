@@ -26,10 +26,17 @@ function Login(props) {
       username: currentName,
       password: currentPassword,
     };
+
+    let authorization = ""
+    if (localStorage.jwtTokenTeams) {
+      // Set auth token header auth
+      authorization = localStorage.jwtTokenTeams
+    }
+
     fetch("/user/login", {
       method: "post",
       body: JSON.stringify(login),
-      headers: { "Content-Type": "application/json" },
+      headers: { "Content-Type": "application/json", "Authorization": authorization },
     })
       .then((res) => res.json())
       .then((res) => {
