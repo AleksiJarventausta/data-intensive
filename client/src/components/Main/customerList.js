@@ -1,6 +1,5 @@
 import { List, Button, Image } from "semantic-ui-react";
 import { useEffect, useState } from "react";
-import CertificationButton from './CertificationStatusButton';
 
 function CustomerListing(props) {
 
@@ -73,7 +72,7 @@ function CustomerListing(props) {
                 )}
               </List.Content>
               <List.Content>
-                <CertificationButton onClick={(e) => updateCustomer(item)}></CertificationButton>
+                <Button primary onClick={(e) => updateCustomer(item)}>Certify</Button>
               </List.Content>
             </List.Item>
           ))}
