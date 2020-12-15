@@ -1,4 +1,4 @@
-import { Button, Grid, Header, Form } from "semantic-ui-react";
+import { Button, Grid, Header, Form, Checkbox } from "semantic-ui-react";
 import { Redirect } from "react-router-dom";
 import { useState, useEffect } from "react";
 import setAuthToken from "../../utils/setAuthToken";
@@ -8,12 +8,14 @@ function Register(props) {
   const [currentName, setName] = useState("");
   const [currentPassword, setPassword] = useState("");
   const [currentPasswordConfirm, setPasswordConfirm] = useState("");
+  const [checkBoxValue, setCheckBoxValue] = useState(0);
 
   const registerSubmit = () => {
     const register = {
       username: currentName,
       password: currentPassword,
-      passwordconfirm: currentPasswordConfirm
+      passwordconfirm: currentPasswordConfirm,
+      profession: checkBoxValue
     };
     let authorization = ""
     if (localStorage.jwtTokenTeams) {
@@ -47,14 +49,32 @@ function Register(props) {
   const handleVerifyChange = (event) => {
     setPasswordConfirm(event.target.value);
   };
+  const handleCheckBoxTick = (event, {value}) => {
+    console.log("set check box")
+    setCheckBoxValue(value)
+  };
 
   if (props.tab !== "/register") {
     return <Redirect to={props.tab} />;
   }
   return (
     <Grid.Column style={{ maxWidth: 450 }}>
-      <Header as="h2"> Login </Header>
+      <Header as="h2"> Register</Header>
       <Form size="large">
+        <Checkbox radio
+        name="checkBoxRadioGroup"
+        value={1}
+        label="I'm an optician"
+        checked={checkBoxValue === 1}
+        onChange={handleCheckBoxTick}
+        />
+        <Checkbox radio
+        name="checkBoxRadioGroup"
+        value={2}
+        label="I'm an opthalmologist"
+        checked={checkBoxValue === 2}
+        onChange={handleCheckBoxTick}
+        />
         <Form.Input
           icon="user"
           iconPosition="left"
