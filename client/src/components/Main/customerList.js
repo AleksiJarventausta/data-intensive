@@ -1,6 +1,5 @@
 import { List, Button, Image } from "semantic-ui-react";
 import { useEffect, useState } from "react";
-import CertificationButton from './CertificationStatusButton';
 
 function CustomerListing(props) {
 
@@ -42,10 +41,11 @@ function CustomerListing(props) {
           {items.map((item) => (
             <List.Item
               key={item._id}
-              onClick={(e) => props.setCustomerId(item._id)}
             >
               <List.Content>
-                <List.Header as="a">
+                <List.Header as="a"
+                  onClick={(e) => props.setCustomerId(item._id)}
+                >
                   {"Name: "}
                   {item.firstname} {item.lastname}
                 </List.Header>
@@ -72,7 +72,7 @@ function CustomerListing(props) {
                 )}
               </List.Content>
               <List.Content>
-                <CertificationButton onClick={(e) => updateCustomer(item)}></CertificationButton>
+                <Button primary onClick={(e) => updateCustomer(item)}>Certify</Button>
               </List.Content>
             </List.Item>
           ))}
