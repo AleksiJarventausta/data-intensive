@@ -57,7 +57,7 @@ function CustomerListing(props) {
   return (
     <>
       <h3>Customers</h3>
-      <List>
+      <List style={{maxHeight:"75%", overflow:"scroll"}}>>
         {items.map((item) => (
           <List.Item key={item._id}>
             <List.Content>
