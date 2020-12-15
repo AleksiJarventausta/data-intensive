@@ -27,7 +27,7 @@ var customerSchema = new Schema({
     type: Boolean,
     required: true,
   },
-  opthamologist_db: {
+  ophthalmologist_db: {
     type: String,
   },
 });

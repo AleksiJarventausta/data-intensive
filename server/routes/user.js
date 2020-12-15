@@ -6,6 +6,27 @@ var registerValidation = require("../validation/validateRegistration");
 var loginValidation = require("../validation/validateLogin");
 const mongoose = require("mongoose");
 const passport = require("passport");
+const opth1 = require("../connections/opthal_1");
+const opth2 = require("../connections/opthal_2");
+const optician = require("../connections/optician_1");
+
+const opthMap = new Map();
+opthMap.set("opthal_1", opth1);
+opthMap.set("opthal_2", opth2);
+const allMap = new Map();
+allMap.set("opthal_1", opth1);
+allMap.set("opthal_2", opth2);
+allMap.set("optician_1", opth2);
+
+function getRandomKey(collection) {
+  let index = Math.floor(Math.random() * collection.size);
+  let cntr = 0;
+  for (let key of collection.keys()) {
+    if (cntr++ === index) {
+      return key;
+    }
+  }
+}
 
 function sendJwtToken(res, payload) {
   jwt.sign(
@@ -159,10 +180,18 @@ router.post("/register", function (req, res) {
     if (user) {
       return res.status(400).json({ username: "Username already in use." });
     } else {
+      let own_db = ""
+      if (req.body.profession == 1) {
+        own_db = "optician_1"
+      } else {
+        own_db = getRandomKey(opthMap);
+      }
+
       let registeringUser = new User({
         username: req.body.username,
         password: req.body.password,
         profession: req.body.profession,
+        own_db: own_db,
         _id: new mongoose.Types.ObjectId(),
       });
       bcrypt.genSalt(10, (err, salt) => {

@@ -15,7 +15,7 @@ var userSchema = new Schema({
   profession: {
     type: Number
   },
-  db: {
+  own_db: {
     type: String
   },
   password: {
