@@ -1,7 +1,7 @@
 {
   "scripts": {
     "start": "node ./server/bin/www",
-    "postinstall": "concurrently \"cd client && npm install \" \"cd server && npm install \"",
+    "postinstall": "concurrently \"cd client && npm install && npm run build\" \"cd server && npm install \"",
     "dev": "concurrently \"npm run dev --prefix server\" \"npm run start --prefix client\""
   },
   "devDependencies": {
