@@ -72,7 +72,7 @@ function CustomerListing(props) {
                 )}
               </List.Content>
               <List.Content>
-                <CertificationButton onClick={updateCustomer(item)}></CertificationButton>
+                <CertificationButton onClick={(e) => updateCustomer(item)}></CertificationButton>
               </List.Content>
             </List.Item>
           ))}
@@ -84,10 +84,10 @@ function CustomerListing(props) {
   );
 }
   
-  function updateCustomer(props){
+  function updateCustomer(item){
     const certificateStatus ={
       certification_status: true,
-      _id: props._id
+      _id: item._id
     };
     console.log(certificateStatus);
 
