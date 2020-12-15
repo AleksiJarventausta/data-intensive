@@ -6,13 +6,13 @@ const multer = require("multer");
 const storage = multer.memoryStorage();
 const upload = multer({ storage });
 
-router.post("/newcustomerwithimage", upload.single("image"), function (req, res) {
+router.put("/newcustomerwithimage", upload.single("image"), function (req, res) {
   let newCustomer = new Customer({
     _id: new mongoose.Types.ObjectId(),
     firstname: req.body.firstname,
     lastname: req.body.lastname,
     address: req.body.address,
-    ssn: req.body.ssn,
+    ssn: req.body.SSN,
     image: req.file.buffer,
   });
 
