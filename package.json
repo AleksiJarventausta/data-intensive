@@ -15,6 +15,6 @@
     "react-cornerstone-viewport": "^4.0.4",
     "react-dropzone": "^11.2.4",
     "concurrently": "^5.3.0"
-  },
   }
+  
 }
