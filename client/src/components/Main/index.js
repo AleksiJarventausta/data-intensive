@@ -4,7 +4,8 @@ import {useState} from "react";
 import NewForm from "./NewUserForm";
 import CustomerList from "./customerList";
 import CornerStoneViewPort from "./CornerstoneViewport";
-import CustomMenu from "./Menu";
+import CustomMenu from "./CustomMenu";
+
 
 function Main(props) {
   const [customerId, setCustomerId] = useState("5fd5ffc5d621e849cc427a00");
@@ -17,35 +18,33 @@ function Main(props) {
   }
 
   return (
-    <>
-      <div>
-        <CustomMenu />
-        <Container text style={{ marginTop: "7em" }}>
-          <Header as="h2"> Welcome, {props.user.username} </Header>
-          <Button onClick={handleLogout}> Logout Button </Button>
-        </Container>
 
-        <Grid container columns={2} relaxed="very">
-          <Grid.Row>
-            <Grid.Column width={8}>
-              <NewForm></NewForm>
-            </Grid.Column>
-            <Grid.Column width={8}>
-              <CustomerList setCustomerId={setCustomerId}></CustomerList>
-            </Grid.Column>
-          </Grid.Row>
 
-          <Grid.Row>
-            <Grid.Column width={8}>
-              <CornerStoneViewPort customerId={customerId}></CornerStoneViewPort>
-            </Grid.Column>
-            <Grid.Column width={8}>
-              <h1>Lisää </h1>
-            </Grid.Column>
-          </Grid.Row>
-        </Grid>
-      </div>
-    </>
+      <Grid container columns={2} relaxed="very">
+        <CustomMenu username={props.user.username} onLogout={handleLogout}/>
+        <Grid.Row>
+
+        </Grid.Row>
+        <Grid.Row>
+          <Grid.Column width={8}>
+            <NewForm />
+          </Grid.Column>
+          <Grid.Column width={8}>
+            <CustomerList setCustomerId={setCustomerId} />
+          </Grid.Column>
+        </Grid.Row>
+
+        <Grid.Row>
+          <Grid.Column width={8}>
+            <CornerStoneViewPort customerId={customerId} />
+          </Grid.Column>
+          <Grid.Column width={8}>
+            <h1>Lisää </h1>
+          </Grid.Column>
+        </Grid.Row>
+      </Grid>
+
+
   );
 }
 
