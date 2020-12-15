@@ -20,6 +20,9 @@ var customerSchema = new Schema({
     type: String,
     required: true,
   },
+  image: {
+    type: Buffer
+  }
 });
 
 module.exports = customerSchema;
