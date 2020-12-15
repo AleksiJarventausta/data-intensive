@@ -23,7 +23,6 @@ function NewUserForm(props) {
       method: 'PUT',
       body: formData
     })
-    .then(res => res.json())
     .then(res => {
       console.log('User data sent', res);
     })
