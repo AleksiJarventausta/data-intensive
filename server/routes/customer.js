@@ -6,34 +6,34 @@ const multer = require("multer");
 const storage = multer.memoryStorage();
 const upload = multer({ storage });
 
+router.put(
+  "/newcustomerwithimage",
+  upload.single("image"),
+  function (req, res) {
+    let customerData = {
+      _id: new mongoose.Types.ObjectId(),
+      firstname: req.body.firstname,
+      lastname: req.body.lastname,
+      address: req.body.address,
+      ssn: req.body.SSN,
+      certification_status: false,
+    };
+    if (req.file) {
+      customerData.image = req.file.buffer;
+    }
 
-router.put("/newcustomerwithimage", upload.single("image"), function (req, res) {
-  let customerData = 
-  {
-    _id: new mongoose.Types.ObjectId(),
-    firstname: req.body.firstname,
-    lastname: req.body.lastname,
-    address: req.body.address,
-    ssn: req.body.SSN,
-  };
-  if(req.file) {
-    customerData.image = req.file.buffer
+    let newCustomer = new Customer(customerData);
+    newCustomer
+      .save()
+      .then((item) => {
+        res.send("ok");
+      })
+      .catch((err) => {
+        console.log(err);
+        res.status(400).send("unable to save to database");
+      });
   }
-
-  let newCustomer = new Customer(customerData)
-  newCustomer
-    .save()
-    .then((item) => {
-      res.send("ok");
-
-    })
-    .catch((err) => {
-      console.log(err);
-      res.status(400).send("unable to save to database");
-    });
-});
-
-
+);
 
 router.post("/newcustomer", function (req, res) {
   let newCustomer = new Customer({
@@ -42,6 +42,7 @@ router.post("/newcustomer", function (req, res) {
     lastname: req.body.lastname,
     address: req.body.address,
     ssn: req.body.ssn,
+    certification_status: false,
   });
 
   newCustomer
@@ -57,12 +58,14 @@ router.post("/newcustomer", function (req, res) {
 
 // 8080/Customer
 router.get("/", function (req, res) {
-  Customer.find().select("-image").exec(function (err, customers) {
-    if (err) return res.status(400).json({ error: "failed" });
-    if (customers) {
-      res.send(customers);
-    }
-  });
+  Customer.find()
+    .select("-image")
+    .exec(function (err, customers) {
+      if (err) return res.status(400).json({ error: "failed" });
+      if (customers) {
+        res.send(customers);
+      }
+    });
 });
 
 module.exports = router;

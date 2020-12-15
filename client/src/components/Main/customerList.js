@@ -8,20 +8,23 @@ function CustomerListing(props) {
     //const response = await fetch("/customer");
     //const data = await response.json();
 
-    let authorization = ""
+    let authorization = "";
     if (localStorage.jwtTokenTeams) {
       // Set auth token header auth
-      authorization = localStorage.jwtTokenTeams
+      authorization = localStorage.jwtTokenTeams;
     }
 
     fetch("customer", {
       method: "get",
-      headers: { "Content-Type": "application/json", "Authorization": authorization }
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: authorization,
+      },
     })
-    .then((res) => res.json())
-    .then((res) => {
-      setItems(res);
-    });
+      .then((res) => res.json())
+      .then((res) => {
+        setItems(res);
+      });
   };
 
   return (
@@ -30,7 +33,10 @@ function CustomerListing(props) {
       {items.length > 0 ? (
         <List>
           {items.map((item) => (
-            <List.Item key={item._id} onClick={(e) => props.setCustomerId(item._id) }>
+            <List.Item
+              key={item._id}
+              onClick={(e) => props.setCustomerId(item._id)}
+            >
               <List.Content>
                 <List.Header as="a">
                   {"Name: "}
@@ -45,6 +51,18 @@ function CustomerListing(props) {
               <List.Content>
                 {" "}
                 {"Social security: "} {item.ssn}
+              </List.Content>
+
+              <List.Content>
+                {item.certification_status ? (
+                  <h5>Customer processed</h5>
+                ) : (
+                  <h5>
+                    {" "}
+                    <List.Icon name="warning" />
+                    Customer not processed
+                  </h5>
+                )}
               </List.Content>
             </List.Item>
           ))}
