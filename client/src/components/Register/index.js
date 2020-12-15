@@ -20,7 +20,7 @@ function Register(props) {
     let authorization = ""
     if (localStorage.jwtTokenTeams) {
       // Set auth token header auth
-      authorization = localStorage.jwtTokenTeams
+      authorization = JSON.parse(localStorage.jwtTokenTeams);
     }
     fetch("/user/register", {
       method: "post",
