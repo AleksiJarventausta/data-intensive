@@ -5,7 +5,7 @@ function CustomerListing(props) {
   const [items, setItems] = useState([]);
 
   const fetchData = async () => {
-    const response = await fetch("http://localhost:8080/customer");
+    const response = await fetch("/customer");
     const data = await response.json();
     setItems(data);
   };
