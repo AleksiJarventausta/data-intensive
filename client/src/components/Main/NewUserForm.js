@@ -13,33 +13,33 @@ function NewUserForm(props) {
   const handleSubmit = () => {
     const formData = new FormData();
 
-    formData.append('firstname', currentFirstName);
-    formData.append('lastname', currentLastName);
-    formData.append('address', currentAddress);
-    formData.append('SSN', currentSSN);
+    formData.append("firstname", currentFirstName);
+    formData.append("lastname", currentLastName);
+    formData.append("address", currentAddress);
+    formData.append("SSN", currentSSN);
     if (currentFiles[0]) {
-      formData.append('image', currentFiles[0]);
+      formData.append("image", currentFiles[0]);
     } else {
-      formData.append('image', null);
+      formData.append("image", null);
     }
 
-    let authorization = ""
+    let authorization = "";
     if (localStorage.jwtTokenTeams) {
       // Set auth token header auth
       authorization = JSON.parse(localStorage.jwtTokenTeams);
     }
 
-    fetch('/customer/newcustomerwithimage', {
-      method: 'PUT',
+    fetch("/customer/newcustomerwithimage", {
+      method: "PUT",
       body: formData,
-      headers: {}
+      headers: {},
     })
-    .then(res => {
-      console.log('User data sent', res);
-    })
-    .catch(error => {
-      console.error('Error sending user data', error);
-    });
+      .then((res) => {
+        console.log("User data sent", res);
+      })
+      .catch((error) => {
+        console.error("Error sending user data", error);
+      });
 
     /*
     const customer = {
@@ -59,7 +59,7 @@ function NewUserForm(props) {
   const handleFileInput = (acceptedFiles) => {
     setFile(acceptedFiles);
     console.log("File input");
-  }
+  };
   const handleNameChange = (event) => {
     setName(event.target.value);
   };
@@ -75,6 +75,7 @@ function NewUserForm(props) {
 
   return (
     <Form>
+      <h3>Add a new customer</h3>
       <Form.Field>
         <label>First name</label>
         <input placeholder="First name" onChange={handleNameChange} />
@@ -95,13 +96,13 @@ function NewUserForm(props) {
         />
       </Form.Field>
       <Dropzone onDrop={handleFileInput}>
-        {({getRootProps, getInputProps}) => (
+        {({ getRootProps, getInputProps }) => (
           <section>
             <div {...getRootProps()}>
               <input {...getInputProps()} />
-              <Label as='a'>
-              <Icon name='file' />
-              Drag and Drop or Insert files here
+              <Label as="a">
+                <Icon name="file" />
+                Drag and Drop or Insert files here
               </Label>
             </div>
           </section>

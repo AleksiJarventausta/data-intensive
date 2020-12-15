@@ -43,9 +43,9 @@ function CustomerListing(props) {
                   {item.firstname} {item.lastname}
                 </List.Header>
               </List.Content>
-              <List.Icon name="mail" />
               <List.Content>
                 {" "}
+                <List.Icon name="mail" />
                 {"Address: "} {item.address}
               </List.Content>
               <List.Content>
