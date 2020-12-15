@@ -16,7 +16,6 @@ var userRoute = require("./routes/user");
 var customerRoute = require("./routes/customer");
 var app = express();
 app.use(cors());
-const optician_1 = require("./connections/optician_1");
 mongoose.Promise = Promise;
 
 app.use(express.json());

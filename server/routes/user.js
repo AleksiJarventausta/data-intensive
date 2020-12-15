@@ -10,13 +10,7 @@ const opth1 = require("../connections/opthal_1");
 const opth2 = require("../connections/opthal_2");
 const optician = require("../connections/optician_1");
 
-const opthMap = new Map();
-opthMap.set("opthal_1", opth1);
-opthMap.set("opthal_2", opth2);
-const allMap = new Map();
-allMap.set("opthal_1", opth1);
-allMap.set("opthal_2", opth2);
-allMap.set("optician_1", opth2);
+const {allMap, opthMap, OPTHAL_1, OPTHAL_2, OPTICIAN_1} = require('../connections/connectionMap')
 
 function getRandomKey(collection) {
   let index = Math.floor(Math.random() * collection.size);

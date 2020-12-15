@@ -43,6 +43,10 @@ function CustomerListing(props) {
         "Content-Type": "application/json",
         Authorization: authorization,
       },
+    }).then(res => {
+      if (res.ok) {
+        fetchData();
+      }
     });
   };
 
