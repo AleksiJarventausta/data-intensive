@@ -22,6 +22,12 @@ var customerSchema = new Schema({
   },
   image: {
     type: Buffer
+  },
+  status: {
+    type: String,
+  },
+  opthamologist_db: {
+    type: String,
   }
 });
 

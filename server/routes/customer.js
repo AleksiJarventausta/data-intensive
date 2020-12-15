@@ -6,16 +6,21 @@ const multer = require("multer");
 const storage = multer.memoryStorage();
 const upload = multer({ storage });
 
+
 router.put("/newcustomerwithimage", upload.single("image"), function (req, res) {
-  let newCustomer = new Customer({
+  let customerData = 
+  {
     _id: new mongoose.Types.ObjectId(),
     firstname: req.body.firstname,
     lastname: req.body.lastname,
     address: req.body.address,
     ssn: req.body.SSN,
-    image: req.file.buffer,
-  });
+  };
+  if(req.file) {
+    customerData.image = req.file.buffer
+  }
 
+  let newCustomer = new Customer(customerData)
   newCustomer
     .save()
     .then((item) => {
