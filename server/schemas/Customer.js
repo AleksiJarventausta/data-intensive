@@ -21,8 +21,15 @@ var customerSchema = new Schema({
     required: true,
   },
   image: {
-    type: Buffer
-  }
+    type: Buffer,
+  },
+  certification_status: {
+    type: Boolean,
+    required: true,
+  },
+  opthamologist_db: {
+    type: String,
+  },
 });
 
 module.exports = customerSchema;

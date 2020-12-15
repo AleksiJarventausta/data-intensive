@@ -15,6 +15,9 @@ var userSchema = new Schema({
   profession: {
     type: Number
   },
+  db: {
+    type: String
+  },
   password: {
     type: String,
     required: true
